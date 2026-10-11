@@ -12,6 +12,30 @@
 | 8-12G | 9B 级 dense 或 12B MoE IQ4 | 社区待验证 | |
 | <8G | 4B 级 + 严格的上下文预算 | 社区待验证 | 体验会明显降级 |
 
+## 从零获取模型（完整步骤）
+
+`xinli fetch-model <发布者>/<模型仓库> <模型文件>.gguf` 的四个信息这样拿：
+
+1. **选型号**：按上表确定档位（如 12–24G → 26B 级 MoE Q4_K_M）。
+2. **找仓库**：在 <https://hf-mirror.com>（国内，免登录）或 <https://huggingface.co>（海外）
+   搜索模型名；Gemma 系官方权重在 huggingface.co 需先点同意 Google 许可条款（hf-mirror 无此门槛）。
+   量化发布者的仓库页会列出 `.gguf` 文件——确认你的显存档位对应的量化等级与文件大小。
+3. **首次下载**：不带校验参数直接跑，结束后自动打印实际 `size` 与 `sha256`：
+   ```bash
+   xinli fetch-model <发布者>/<模型仓库> <模型文件>.gguf
+   # [fetch] OK (未提供校验参数) → local_llm/<模型文件>.gguf
+   # [fetch] size = 17xxxxxxxx bytes
+   # [fetch] sha256 = 3f9a...（记录这两个值）
+   ```
+4. **把模型文件名填进配置**：`config/settings.yaml` → `model.file` 与 `llm.local.model`。
+5. **以后重下/换机器**：带上记录的两个值复检（>20G 强烈建议，hf-mirror 大文件偶有坏缓存）：
+   ```bash
+   xinli fetch-model <发布者>/<模型仓库> <模型文件>.gguf --sha256 3f9a... --size 17xxxxxxxx
+   ```
+
+模型放哪？`--dest` 默认 `local_llm/`。注意 `model.file` 是相对 `local_llm/` 的路径，
+放子目录就把文件名写成 `子目录/xxx.gguf`。
+
 ## 许可与选型提醒
 
 - Gemma 系列权重自带 Google 的使用条款，分发与商用前请自行确认；第三方量化文件同样受其约束。

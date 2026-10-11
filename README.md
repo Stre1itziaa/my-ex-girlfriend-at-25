@@ -30,15 +30,19 @@ Zero finetuning · retrieval-native persona · inner life · WeChat channel · l
 
 ## 5 分钟跑通（零数据 demo）
 
+前置：Python 3.10+ · 12–24G 显存 GPU（低于会降级）· 约 25GB 磁盘。
+**新手或 agent 请按 [docs/getting-started.md](docs/getting-started.md) 逐步走**——每一步带验证点，含 llama-server 获取。
+
 ```bash
 pip install -e .[vision]
 xinli init                       # 生成配置(含虚构示例人格「小满」)
-xinli fetch-model <repo> <file> --sha256 <hex> --size <bytes>   # 下载本地模型
+xinli fetch-model <发布者>/<仓库> <模型文件>.gguf   # 下载本地模型(首下不带校验参数, 自动打印 sha256)
 xinli serve-llm                  # 启动推理(硬件画像自动配参: CUDA/Vulkan, 显存分档)
+xinli build --demo               # 合成语料建索引(完整体验; 不跑也能聊, 只是空检索)
 xinli run                        # http://127.0.0.1:8787 开聊
 ```
 
-用自己的聊天记录：把聊天记录导出为解密库后 `xinli build`（详见 [docs/wechat-bind.md](docs/wechat-bind.md)）。
+用自己的聊天记录：先按 [docs/export-logs.md](docs/export-logs.md) 导出解密库（含数据红线，先读）再 `xinli build`。
 
 ## 核心特性
 

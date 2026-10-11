@@ -12,13 +12,14 @@ Zero finetuning · retrieval-native persona · inner life · WeChat channel · l
 ```bash
 pip install -e .[vision]
 xinli init
-xinli fetch-model <repo> <file> --sha256 <hex> --size <bytes>
+xinli fetch-model <publisher>/<repo> <model-file>.gguf   # verification optional; prints sha256
 xinli serve-llm          # hardware-aware launch (CUDA/Vulkan, VRAM tiers)
 xinli build --demo       # synthetic demo corpus → profile/index/rhythm
 xinli run                # http://127.0.0.1:8787
 ```
 
-Use your own logs: export your decrypted WeChat DB, then `xinli build` (see docs/wechat-bind.md, 中文).
+New here (or dispatching an agent)? Follow **[docs/getting-started.md](docs/getting-started.md)** — every step has a verification checkpoint, including where to get `llama-server`.
+Use your own logs: export your decrypted WeChat DB first, then `xinli build` (see docs/export-logs.md, 中文).
 
 ## Highlights
 

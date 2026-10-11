@@ -3,6 +3,8 @@
 
 用法:
   python -m xinli.fetch_model REPO_ID FILENAME DEST_DIR SHA256 EXPECT_SIZE
+  SHA256 传全零 / EXPECT_SIZE 传 0 = 不校验, 下载后自动打印实际 sha256 与大小
+  (首次获取某模型时用; 把打印值记下来, 以后重下可用它们复检)
 环境:
   HF_ENDPOINT 默认 https://hf-mirror.com (国内); 海外可设 https://huggingface.co
 教训沉淀: hf_hub 收尾挂起=常态(看门狗 7 分钟接管); >20G 对象 hf-mirror 可能坏缓存
@@ -22,22 +24,29 @@ os.environ.setdefault("HF_HUB_ENABLE_HF_TRANSFER", "1")
 WATCHDOG_S = 420  # 满大小 7 分钟未收尾 → 交手动校验
 
 
-def _sha256(path: Path, expect: str) -> bool:
+def sha256_of(path: Path) -> str:
     h = hashlib.sha256()
     with open(path, "rb") as f:
         for chunk in iter(lambda: f.read(1 << 24), b""):
             h.update(chunk)
-    return h.hexdigest() == expect
+    return h.hexdigest()
+
+
+def _sha256(path: Path, expect: str) -> bool:
+    return sha256_of(path) == expect
 
 
 def fetch(repo_id: str, filename: str, dest_dir: str, sha256: str, expect_size: int):
     from huggingface_hub import hf_hub_download
+    verify = expect_size > 0 and sha256 and set(sha256.strip()) != {"0"}
     dest = Path(dest_dir)
     dest.mkdir(parents=True, exist_ok=True)
     cache = dest / ".cache" / "huggingface" / "download"
 
     done = {"ok": False}
     def watch():
+        if not verify:
+            return
         full_since = None
         while not done["ok"]:
             cands = glob.glob(str(cache / "*" + sha256[:16] + "*.incomplete"))
@@ -55,6 +64,12 @@ def fetch(repo_id: str, filename: str, dest_dir: str, sha256: str, expect_size: 
     p = hf_hub_download(repo_id=repo_id, filename=filename, local_dir=dest)
     done["ok"] = True
     got = os.path.getsize(p)
+    if not verify:
+        print(f"[fetch] OK (未提供校验参数) → {p}")
+        print(f"[fetch] size = {got} bytes")
+        print(f"[fetch] sha256 = {sha256_of(Path(p))}")
+        print("[fetch] 建议记录以上两值; 之后重新下载可用 --size/--sha256 复检")
+        return
     if got != expect_size:
         raise SystemExit(f"[fetch] 大小不符 {got} != {expect_size}")
     if not _sha256(p, sha256):
