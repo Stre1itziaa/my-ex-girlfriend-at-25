@@ -203,5 +203,14 @@ if __name__ == "__main__":
 
     threading.Thread(target=tick_loop, daemon=True).start()
     threading.Thread(target=wechat_inbox_loop, daemon=True).start()
-    print(f"{persona_name} 本地聊天页: http://127.0.0.1:8787 （她每2分钟掷骰子决定要不要找你）")
-    ThreadingHTTPServer(("127.0.0.1", 8787), H).serve_forever()
+    # UI 地址读 config/settings.yaml 的 ui 段(缺省 127.0.0.1:8787)
+    _ui_host, _ui_port = "127.0.0.1", 8787
+    try:
+        import yaml as _y
+        _cfg = _y.safe_load((Path(__file__).resolve().parent.parent.parent / "config" / "settings.yaml").read_text(encoding="utf-8")) or {}
+        _ui = _cfg.get("ui") or {}
+        _ui_host, _ui_port = _ui.get("host", _ui_host), int(_ui.get("port", _ui_port))
+    except Exception:
+        pass
+    print(f"{persona_name} 本地聊天页: http://{_ui_host}:{_ui_port} （她每2分钟掷骰子决定要不要找你）")
+    ThreadingHTTPServer((_ui_host, _ui_port), H).serve_forever()
