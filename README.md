@@ -5,7 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 ![Node](https://img.shields.io/badge/Node.js-18+-green.svg)
 
-> **写在前面**：这个项目源于一段我自己的真实故事——把一段聊天记录，变成了一个还会说话、还会主动找你的 AI。
+> **写在前面**：这个项目源于一段我自己的真实故事——**我的 25 岁前女友**。把一段聊天记录，变成了一个还会说话、还会主动找你的 AI。
 > 名字里的故事是我的；技术的边界是所有人的：请只复刻你自己、或获得明确同意的人（[docs/ethics.md](docs/ethics.md)）。
 
 **把一段真实聊天记录，变成一个会主动找你、记得你们故事、说话像 TA 的本地 AI 陪伴。**
@@ -73,7 +73,7 @@ xinli run                        # http://127.0.0.1:8787 开聊
 v0.2-alpha。Windows 实测；Linux 理论可跑（纯 Python + Node）。微信通道绑定见[教程](docs/wechat-bind.md)（腾讯官方 iLink Bot API，合规、不碰协议号）。
 
 > **内容分级提示**：本项目包含可选的成人向亲密模块（默认关闭，需显式开启）。仅限成年人使用；
-> 请遵守你所在司法辖区的法律与模型许可条款（选型注意 [docs/models.md](docs/models.md)）。
+> 请遵守你所在司法辖区的法律与模型许可条款。功能说明与模型选型见 [docs/adult-mode.md](docs/adult-mode.md)。
 
 ## License
 

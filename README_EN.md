@@ -38,5 +38,5 @@ Use your own logs: export your decrypted WeChat DB first, then `xinli build` (se
 | 12-24G | Gemma4-26B-A4B-class MoE Q4, experts in RAM | ✅ tested (16G+32G RAM): ~5s/turn warm |
 | <12G | 9B-class or IQ quants | community-verified pending |
 
-License: Apache-2.0 — third-party components and licenses listed in [NOTICE](NOTICE). Content notice: contains an optional adult-oriented module (off by default), for adults only.
+License: Apache-2.0 — third-party components and licenses listed in [NOTICE](NOTICE). Content notice: contains an optional adult-oriented module (off by default), for adults only — see docs/adult-mode.md (中文).
 中文文档: [README.md](README.md) · [docs/](docs/)
