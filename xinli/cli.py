@@ -26,7 +26,7 @@ def cmd_init(a):
         else:
             __import__("shutil").copy(src, dst)
             print(f"[init] 已创建 {dst.name} — 按注释填写 (人格内容必改)")
-    for d in ("memory", "state", "data/index", "data/stickers", "channels/wechat"):
+    for d in ("memory", "state", "data/index", "data/stickers", "channels/agent2wechat"):
         (BASE / d).mkdir(parents=True, exist_ok=True)
     print("[init] 目录就绪。下一步: 编辑 config/persona.yaml, 然后 `xinli fetch-model`")
 

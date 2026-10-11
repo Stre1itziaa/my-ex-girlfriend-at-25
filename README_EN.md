@@ -2,7 +2,7 @@
 
 **Turn a real chat history into a local AI companion who texts first, remembers your story, and talks like the person.**
 
-Zero finetuning · retrieval-native persona · inner life · local-first inference.
+Zero finetuning · retrieval-native persona · inner life · WeChat channel · local-first inference.
 
 > **⚠️ Ethics charter first**: only recreate **yourself** or someone who gave explicit informed consent.
 > Recreating others without consent, impersonation, or harassment violates the charter ([docs/ethics.md](docs/ethics.md)).
@@ -27,7 +27,7 @@ Use your own logs: export your decrypted WeChat DB, then `xinli build` (see docs
 - **Inner life**: schedule engine + mood appraisal + proactive texting with four suppressors (an adult-oriented desire/intimate module exists but is **off by default**; enable explicitly in `settings.yaml`)
 - **Nightly consolidation**: new chats → fact cards with ADD/UPDATE/DELETE and supersede audit chain — local model only, nothing leaves the machine
 - **Sticker semantics**: mined per-sticker usage context from logs; vision-calibrated; context-matched selection
-- **WeChat**: official Tencent iLink Bot API (compliant; no protocol hacks) — **bridge component not yet published in this repo (planned)**; design notes in docs/wechat-bind.md (中文)
+- **WeChat**: official Tencent iLink Bot API (compliant; no protocol hacks) — text/images/files in a private chat with the bound owner only; see docs/wechat-bind.md (中文) and channels/agent2wechat/
 
 ## Hardware
 

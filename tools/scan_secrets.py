@@ -39,6 +39,7 @@ BUILTIN = [
 
 SKIP_DIRS = {".git", ".venv", "venv", "__pycache__", "node_modules", "local_llm",
              "media-in", "inbox", "outbox", "sent", "failed", "processed", "login",
+             "alerts", "statuses", "accounts", "logs",
              ".pytest_cache", ".ruff_cache"}
 # 超大模型权重不扫(体积原因); 其余二进制一律走字符串扫描
 SKIP_EXT = {".gguf", ".safetensors", ".ckpt", ".pt", ".pth", ".bin"}
@@ -137,7 +138,7 @@ def scan(root: Path, mode="all", verbose=False):
 def scan_history(root: Path, verbose=False):
     import subprocess
     compiled = compile_patterns(root)
-    # 豁免当前扫描器自身的 blob: 其内容就是模式字面量, 历史模式会自匹配
+    # 豁免扫描器自身的 blob(含历史版本): 其内容就是模式字面量, 历史模式会自匹配
     own = subprocess.run(["git", "hash-object", str(Path(__file__).resolve())],
                          cwd=root, capture_output=True, text=True).stdout.strip()
     check = subprocess.run(
@@ -153,6 +154,8 @@ def scan_history(root: Path, verbose=False):
             continue
         blob = subprocess.run(["git", "cat-file", "blob", sha],
                               cwd=root, capture_output=True).stdout
+        if b"def load_personal_patterns" in blob:  # 扫描器自身/历史版本
+            continue
         nblob += 1
         if b"\x00" in blob[:8192]:
             _match_lines(_binary_strings(blob), compiled, f"{sha[:12]}~bin", hits, verbose)

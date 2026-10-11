@@ -129,17 +129,31 @@ class Companion:
             memory_line=memory_line,
             examples="", facts="", stickers_menu="{stickers_menu}",
         )
-        # 表情包语义菜单
-        tf = BASE / "data" / "stickers" / "tags.json"
-        self.stk_menu = ""
-        if tf.exists():
+
+    def _menu(self):
+        """表情菜单采样: 池≤35全列; 否则 高频12+随机18(每轮换血)。"""
+        try:
+            tags = self.tags_all
+        except AttributeError:
             try:
-                tags = json.loads(tf.read_text(encoding="utf-8"))
-                self.stk_menu = " ".join(
-                    f"[{t['idx']}]{t.get('desc','')}({'/'.join(t.get('tags', [])[:3])})"
-                    for t in tags)
+                tf = BASE / "data" / "stickers" / "tags.json"
+                self.tags_all = json.loads(tf.read_text(encoding="utf-8")) if tf.exists() else []
             except Exception:
-                self.stk_menu = ""
+                self.tags_all = []
+            tags = self.tags_all
+        tags = [t for t in tags if t.get("desc")]
+        if not tags:
+            return "（无）"
+        if len(tags) <= 35:
+            picked = tags
+        else:
+            top = sorted(tags, key=lambda t: -t.get("count", 0))[:12]
+            rest = [t for t in tags if t not in top]
+            picked = sorted(top + random.sample(rest, min(18, len(rest))),
+                            key=lambda t: t.get("idx", 0))
+        return " ".join(
+            f"[{t['idx']}]{t.get('desc','')}({'/'.join(t.get('tags', [])[:3])})"
+            for t in picked)
 
     def _split_bursts(self, text):
         """按换行拆连发, 单条过长在标点处再切; 剔除占位符, 微信表情名翻成 emoji。"""
@@ -166,8 +180,8 @@ class Companion:
                     out.append(buf.strip())
         return out or [text.strip()]
 
-    def reply(self, user_msg, history):
-        """history: [(role,'user'/'me'), ...]; 返回 bubbles 列表。"""
+    def reply(self, user_msg, history, images=None):
+        """history: [(role,'user'/'me'), ...]; images: 本地图片路径列表(走本地视觉); 返回 bubbles 列表。"""
         import emoji_map
         user_msg = emoji_map.inbound(user_msg)
         examples, facts = "", ""
@@ -229,7 +243,7 @@ class Companion:
         if news_block:
             dyn += news_block + "\n"
         msgs = [{"role": "system", "content": self.sys.format(
-            stickers_menu=self.stk_menu or "（无）") + "\n" + persona_block + his_block},
+            stickers_menu=self._menu()) + "\n" + persona_block + his_block},
                 {"role": "system", "content": dyn or "（新对话开始）"},
                 {"role": "system", "content": "【她此刻的状态】\n" + self.inner.prompt_block()}]
         _user_spicy = _intimate_enabled() and _intimate_mode(user_msg, history)
@@ -242,7 +256,29 @@ class Companion:
             msgs.append({"role": "system", "content": INTIMATE_BLOCK_DESIRE})
         for role, content in history[-8:]:
             msgs.append({"role": "user" if role == "user" else "assistant", "content": content})
-        msgs.append({"role": "user", "content": user_msg})
+        if images:
+            # 多模态: 图片(转首帧jpeg base64) + 文本, 走本地视觉(mmproj)
+            import base64
+            from io import BytesIO
+            parts = []
+            for img in images[:2]:
+                try:
+                    pp = Path(img)
+                    if pp.suffix.lower() == ".gif":
+                        from PIL import Image as _I
+                        im = _I.open(pp)
+                        buf = BytesIO()
+                        im.convert("RGB").save(buf, "JPEG", quality=85)
+                        b64, mime = base64.b64encode(buf.getvalue()).decode(), "image/jpeg"
+                    else:
+                        b64, mime = base64.b64encode(pp.read_bytes()).decode(), "image/jpeg"
+                    parts.append({"type": "image_url", "image_url": {"url": f"data:{mime};base64,{b64}"}})
+                except Exception as e:
+                    print("[vision] 图片处理失败:", str(e)[:80])
+            parts.append({"type": "text", "text": user_msg or "（对方发来一张照片，看看是什么，用你的方式回应）"})
+            msgs[-1] = {"role": "user", "content": parts}
+        else:
+            msgs.append({"role": "user", "content": user_msg})
 
         import llm as _llmmod
 
@@ -266,7 +302,7 @@ class Companion:
 
         with open(JOURNAL, "a", encoding="utf-8") as f:
             f.write(json.dumps({"t": int(datetime.datetime.now().timestamp()),
-                                "user": user_msg, "her": text,
+                                "user": (user_msg or ("[图片]" if images else "")), "her": text,
                                 **({"test": True} if getattr(self, "test_mode", False) else {})},
                                ensure_ascii=False) + "\n")
         return bubbles

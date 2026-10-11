@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "xinli"
-version = "0.1.0"
+version = "0.2.0"
 description = "Turn real chat logs into a living AI companion — retrieval-native persona, inner life, zero finetuning. 把真实聊天记录变成有血有肉的 AI 陪伴。"
 readme = "README.md"
 requires-python = ">=3.10"

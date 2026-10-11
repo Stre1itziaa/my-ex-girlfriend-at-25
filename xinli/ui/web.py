@@ -135,9 +135,9 @@ if __name__ == "__main__":
     wh_hist = []  # 微信侧会话历史（与本地UI独立）
 
     def _bridge():
-        """微信桥接组件（规划中，代码未随库发布）：存在则返回模块，否则 None。"""
+        """微信桥接适配器(channels/bridge_io.py): 存在则返回模块, 否则 None。"""
         import sys as _sys
-        _sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "channels"))
+        _sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "channels"))
         try:
             import bridge_io
             return bridge_io
@@ -145,22 +145,41 @@ if __name__ == "__main__":
             return None
 
     def wechat_inbox_loop():
-        """每2秒: 收微信消息 -> 她 -> 回。通道组件未安装时待机。"""
+        """每2秒: 收微信消息 -> 她 -> 回。通道未绑定或 PAUSED 时待机。"""
         global _comp
         bridge = _bridge()
         if bridge is None:
-            print("[wechat] 通道组件未安装，微信收发待机（详见 docs/wechat-bind.md）", flush=True)
+            print("[wechat] 桥接适配器缺失，微信收发待机（详见 docs/wechat-bind.md）", flush=True)
             return
+        paused_flag = Path(__file__).resolve().parent.parent.parent / "channels" / "agent2wechat" / "PAUSED"
         while True:
             try:
                 if _comp is None:
                     print("[ui] 加载检索索引与画像…", flush=True)
                     _comp = __import__("chat").Companion()
+                if paused_flag.exists():
+                    # PAUSED 冷却: 只归档不回复(消息留在 inbox, 解冻后统一处理)
+                    _time.sleep(3)
+                    continue
                 if bridge.wechat_bound():
-                    for m in bridge.poll_inbox():
-                        bubbles = _comp.reply(m["text"], wh_hist)
-                        bridge.send(bubbles, context_token=m.get("ctx"), tag="reply")
-                        wh_hist.append(("user", m["text"]))
+                    msgs = bridge.poll_inbox()
+                    if msgs:
+                        # 连发聚合: 收到后追等两轮把快速连发聚齐(总延迟≤7s), 一次回复——真人不会逐条拆着回
+                        for _ in range(2):
+                            _time.sleep(3.5)
+                            more = bridge.poll_inbox()
+                            if not more:
+                                break
+                            msgs += more
+                        imgs = []
+                        for m in msgs:
+                            imgs += [p for p in (m.get("images") or []) if p]
+                        imgs = imgs[:2]
+                        utext = "\n".join(m["text"] for m in msgs if m.get("text")).strip()
+                        utext = utext or ("[对方发来一张照片]" if imgs else "")
+                        bubbles = _comp.reply(utext, wh_hist, images=imgs)
+                        bridge.send(bubbles, context_token=msgs[-1].get("ctx"), tag="reply")
+                        wh_hist.append(("user", utext))
                         wh_hist.append(("assistant", "\n".join(bubbles)))
                         if len(wh_hist) > 24:
                             del wh_hist[:2]

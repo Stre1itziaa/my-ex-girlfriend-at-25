@@ -1,10 +1,14 @@
 # 心侣 xinli
 
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![Node](https://img.shields.io/badge/Node.js-18+-green.svg)
+
 **把一段真实聊天记录，变成一个会主动找你、记得你们故事、说话像 TA 的本地 AI 陪伴。**
 **Turn real chat logs into a local AI companion who texts first, remembers your story, and talks like the person.**
 
-零微调 · 检索复刻人格 · 内心系统 · 本地推理（数据不出机器）
-Zero finetuning · retrieval-native persona · inner life · local inference
+零微调 · 检索复刻人格 · 内心系统 · 微信直连 · 本地推理（数据不出机器）
+Zero finetuning · retrieval-native persona · inner life · WeChat channel · local inference
 
 ---
 
@@ -18,7 +22,7 @@ Zero finetuning · retrieval-native persona · inner life · local inference
 ```
 聊天记录导出 → 清洗(爆发合并) → 风格画像 → 关系编年史 → 双路检索索引(BM25+向量)
      → 作息统计 → 表情包语义库 → 运行时大脑(检索人格+情绪+日程+主动触达)
-     → 本地 WebUI（微信官方 iLink Bot 通道: 规划中, 见下方说明）
+     → 本地 WebUI + 微信（官方 iLink Bot 通道，只服务扫码绑定的主人）
      → 每夜固化循环(新对话 → 事实卡 ADD/UPDATE/DELETE → 记忆检索分片)
 ```
 
@@ -42,6 +46,7 @@ xinli run                        # http://127.0.0.1:8787 开聊
 - **底档纪律**：用户校对的人生事实最高优先级，没写的人/事一律"不认识"——反幻觉内建
 - **内心系统**：作息引擎 + 情绪 appraisal + 日程地点锚（成人向需求值/亲密模块存在但**默认关闭**，需在 `settings.yaml` 显式开启）
 - **主动触达**：掷骰 + 四重抑制器（睡眠/冷却/日上限/刚聊过不打扰），像真人一样找你
+- **微信直连**：官方 iLink Bot 通道（ClawBot），私聊收发文字/图片/文件；她发的表情包会以真图送达，你发的照片她能"看见"（本地视觉）
 - **每夜固化**：新对话自动变长期记忆（Mem0 式 ADD/UPDATE/DELETE + 审计链），固化只走本地模型
 - **本地推理**：llama.cpp，AMD/NVIDIA 通吃（硬件画像自动配参），**默认不出网**（热搜抓取除外，可关；云端 API 后端可选，开启即自行承担数据出域）
 
@@ -57,7 +62,7 @@ xinli run                        # http://127.0.0.1:8787 开聊
 
 ## 状态
 
-v0.1-alpha。Windows 实测；Linux 理论可跑（纯 Python）。微信通道组件**尚未随库发布**（规划中）——绑定思路与合规前提见[教程](docs/wechat-bind.md)（腾讯官方 iLink Bot API，合规、不碰协议号）。
+v0.2-alpha。Windows 实测；Linux 理论可跑（纯 Python + Node）。微信通道绑定见[教程](docs/wechat-bind.md)（腾讯官方 iLink Bot API，合规、不碰协议号）。
 
 > **内容分级提示**：本项目包含可选的成人向亲密模块（默认关闭，需显式开启）。仅限成年人使用；
 > 请遵守你所在司法辖区的法律与模型许可条款（选型注意 [docs/models.md](docs/models.md)）。
