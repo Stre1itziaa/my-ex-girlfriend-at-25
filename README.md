@@ -1,6 +1,6 @@
 # 心侣 xinli
 
-[![CI](https://github.com/Stre1itziaa/my-25-ex/actions/workflows/ci.yml/badge.svg)](https://github.com/Stre1itziaa/my-25-ex/actions/workflows/ci.yml)
+[![CI](https://github.com/Stre1itziaa/xinli/actions/workflows/ci.yml/badge.svg)](https://github.com/Stre1itziaa/xinli/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 ![Node](https://img.shields.io/badge/Node.js-18+-green.svg)
