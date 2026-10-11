@@ -23,8 +23,8 @@
 ## 2. 安装项目
 
 ```bash
-git clone https://github.com/<OWNER>/xinli.git
-cd xinli
+git clone https://github.com/Stre1itziaa/my-25-ex.git
+cd my-25-ex
 pip install -e .[vision]
 ```
 

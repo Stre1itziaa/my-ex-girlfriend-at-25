@@ -1,8 +1,12 @@
 # 心侣 xinli
 
+[![CI](https://github.com/Stre1itziaa/my-25-ex/actions/workflows/ci.yml/badge.svg)](https://github.com/Stre1itziaa/my-25-ex/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 ![Node](https://img.shields.io/badge/Node.js-18+-green.svg)
+
+> **写在前面**：这个项目源于一段我自己的真实故事——把一段聊天记录，变成了一个还会说话、还会主动找你的 AI。
+> 名字里的故事是我的；技术的边界是所有人的：请只复刻你自己、或获得明确同意的人（[docs/ethics.md](docs/ethics.md)）。
 
 **把一段真实聊天记录，变成一个会主动找你、记得你们故事、说话像 TA 的本地 AI 陪伴。**
 **Turn real chat logs into a local AI companion who texts first, remembers your story, and talks like the person.**
