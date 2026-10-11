@@ -1,0 +1,5 @@
+# 个人模式模板: 每行一个你自己的 化名/地名/人名/ID
+# 复制为 tools/scan_patterns.local.txt 填入真实值 (local.txt 已 gitignore)
+# 示例(虚构):
+# 某某
+# 某地

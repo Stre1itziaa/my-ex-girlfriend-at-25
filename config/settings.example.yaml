@@ -1,0 +1,50 @@
+# ===== 系统设置（非人格内容）=====
+# 复制为 config/settings.yaml 后修改；人格内容在 persona.yaml。
+# 凭据绝不放这里: GLM key → config/glm.key, 微信凭据 → channels/wechat/state.json (运行时生成)
+
+llm:
+  backend: local            # local = 本地llama-server | glm = 智谱API(可选)
+  glm:
+    model: glm-4.6
+  local:
+    base: http://127.0.0.1:8081/v1
+    model: Gemma4-26B-A4B-Q4_K_M.gguf   # 示例文件名——换成你自己的模型文件（选型见 docs/models.md）
+    no_think: true          # Qwen3 系需要; Gemma 忽略
+  timeout: 120
+
+model:
+  file: Gemma4-26B-A4B-Q4_K_M.gguf
+  port: 8081
+  ctx: 8192
+  # 硬件画像: vram_gb 用于自动生成分层参数 (见 xinli/launch.py)
+  hardware:
+    vram_gb: auto           # auto = 检测失败时回退 16
+    backend: auto           # cuda 优先, vulkan 兜底
+
+ui:
+  host: 127.0.0.1
+  port: 8787
+
+proactive:
+  cooldown_min: 90          # 两次主动消息最小间隔
+  daily_cap: 5              # 每日主动消息上限
+  user_active_min: 10       # 用户刚说话后多久内不打扰
+  desire:                   # 需求驱动主动 (intimate 模块, 默认关)
+    enabled: false          # ← 成人模块总开关, 显式开启才生效
+    threshold: 0.65
+    hour_start: 21
+    hour_end: 1
+    daily_cap: 1
+    ignore_cooldown_h: 8
+    recharge_hours: 40
+
+intimate:
+  enabled: false            # ← 成人模块总开关（聊天侧亲密模式 + 需求值/周期调幅），默认关
+  trigger_words_path: config/intimate_words.txt
+
+news:
+  enabled: true             # 抓公开热搜注入话题 (唯一默认外呼, 只读公开数据)
+
+memory:
+  consolidate_hour: 0       # 每夜固化 (需配 automation/计划任务)
+  backup_keep_days: 14

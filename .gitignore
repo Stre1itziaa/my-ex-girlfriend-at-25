@@ -1,0 +1,54 @@
+# ===== 真人数据：绝不入库（红线，见 docs/ethics.md）=====
+memory/
+data/
+state/
+wechat_data/
+config/persona.yaml
+config/settings.yaml
+config/profile.yaml
+config/target.yaml
+config/glm.key
+config/*.key
+channels/wechat/state.json
+channels/wechat/inbox/
+channels/wechat/outbox/
+channels/wechat/sent/
+channels/wechat/failed/
+channels/wechat/processed/
+channels/wechat/media-in/
+channels/wechat/alerts/
+channels/wechat/login/
+channels/wechat/statuses/
+channels/wechat/logs/
+channels/wechat/*.log
+eval/accept_*.json
+eval/holdout_*.jsonl
+
+# ===== 本地大模型与运行产物 =====
+local_llm/
+*.gguf
+*.log
+logs/
+cache/
+.cache/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# ===== IDE / OS =====
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ===== 环境变量（密钥只进 .env，.env.example 才入库）=====
+.env
+tools/scan_patterns.local.txt

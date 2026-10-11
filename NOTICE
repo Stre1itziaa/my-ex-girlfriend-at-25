@@ -1,0 +1,38 @@
+Xinli (心侣)
+Copyright 2026 xinli contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+------------------------------------------------------------------------------
+Third-party components
+------------------------------------------------------------------------------
+
+1. Runtime dependencies (pip):
+   - pyyaml        — MIT
+   - fastembed     — Apache-2.0  (optional, vector recall; degrades to BM25-only)
+   - Pillow        — MIT-CMU     (optional, sticker vision calibration)
+
+2. Local inference backend (downloaded at runtime, not distributed here):
+   - llama.cpp     — MIT
+   - Models carry their own licenses (e.g. Gemma license terms). Check
+     docs/models.md before use.
+
+------------------------------------------------------------------------------
+Ethics notice
+------------------------------------------------------------------------------
+
+This software is intended to recreate YOUR OWN conversational persona, or that
+of a person who has given explicit informed consent. Recreating another person
+without consent, or using it to impersonate, harass, or disturb anyone, is a
+violation of the project charter (docs/ethics.md) and, in many jurisdictions,
+of the law.

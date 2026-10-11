@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xinli"
+version = "0.1.0"
+description = "Turn real chat logs into a living AI companion — retrieval-native persona, inner life, zero finetuning. 把真实聊天记录变成有血有肉的 AI 陪伴。"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "xinli contributors" }]
+keywords = ["ai-companion", "persona", "weixin", "wechat", "llm", "llama-cpp", "memory", "chinese"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: Chinese (Simplified)",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Communications :: Chat",
+]
+dependencies = [
+    "pyyaml>=6.0",
+    "fastembed>=0.3",
+]
+
+[project.optional-dependencies]
+vision = ["Pillow>=10.0"]          # 表情包视觉校准 (s8b) 需要
+dev = ["pytest>=8.0", "ruff>=0.4"]
+
+[project.scripts]
+xinli = "xinli.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["xinli*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
