@@ -9,7 +9,7 @@ pip install -e .[vision,wechat,dev]
 ## 改动后的验证门（全部通过再提 PR）
 
 ```bash
-ruff check xinli tools tests channels --select E9,F63,F7,F82   # 致命错误级
+ruff check my_ex_girlfriend_at_25 tools tests channels --select E9,F63,F7,F82   # 致命错误级
 python -m pytest tests/ -q                                     # 单测
 python tools/scan_secrets.py --root . --tracked                # 脱敏扫描（CI 同款）
 python tools/scan_secrets.py --root . --history                # 全 git 历史体检

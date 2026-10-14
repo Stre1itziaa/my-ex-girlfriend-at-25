@@ -16,7 +16,7 @@ model:
   file: Gemma4-26B-A4B-Q4_K_M.gguf
   port: 8081
   ctx: 8192
-  # 硬件画像: vram_gb 用于自动生成分层参数 (见 xinli/launch.py)
+  # 硬件画像: vram_gb 用于自动生成分层参数 (见 my_ex_girlfriend_at_25/launch.py)
   hardware:
     vram_gb: auto           # auto = 检测失败时回退 16
     backend: auto           # cuda 优先, vulkan 兜底

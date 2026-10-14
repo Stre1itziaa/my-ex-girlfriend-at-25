@@ -80,10 +80,10 @@ def _load(path: Path) -> dict:
 
 
 def load_settings(base: Path = None) -> Settings:
-    b = Path(base) if base else (Path(os.environ.get("XINLI_BASE", BASE)))
+    b = Path(base) if base else (Path(os.environ.get("MY_EX_GIRLFRIEND_AT_25_BASE", BASE)))
     return Settings(_load(b / "config" / "settings.yaml"))
 
 
 def load_persona(base: Path = None) -> Persona:
-    b = Path(base) if base else (Path(os.environ.get("XINLI_BASE", BASE)))
+    b = Path(base) if base else (Path(os.environ.get("MY_EX_GIRLFRIEND_AT_25_BASE", BASE)))
     return Persona(_load(b / "config" / "persona.yaml"))

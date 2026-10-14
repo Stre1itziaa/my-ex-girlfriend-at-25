@@ -38,11 +38,11 @@ wechat_data/decrypted/MSG0.db
 ## 第 3 步：导出 → 建库
 
 ```bash
-python -m xinli.pipeline.s1_export   # 解密库 → data/corpus/raw.jsonl（只写不改的真相源）
-xinli build                          # s2清洗 → … → s8b 打标，全管线
+python -m my_ex_girlfriend_at_25.pipeline.s1_export   # 解密库 → data/corpus/raw.jsonl（只写不改的真相源）
+my-ex-girlfriend-at-25 build                          # s2清洗 → … → s8b 打标，全管线
 ```
 
-**✅ 验证**：s1 末行输出消息数/时间跨度/类型分布；`xinli doctor` 检索索引 ✓。
+**✅ 验证**：s1 末行输出消息数/时间跨度/类型分布；`my-ex-girlfriend-at-25 doctor` 检索索引 ✓。
 
 ## 第 4 步：告诉 TA 记忆的边界（推荐）
 
@@ -52,7 +52,7 @@ xinli build                          # s2清洗 → … → s8b 打标，全管�
 memory_cutoff: 2026-09-30   # 你语料的截止日期
 ```
 
-然后 `xinli run`。此后新产生的对话会在每夜固化循环里变成长期记忆（需本地模型在跑）。
+然后 `my-ex-girlfriend-at-25 run`。此后新产生的对话会在每夜固化循环里变成长期记忆（需本地模型在跑）。
 
 ## 输入契约（给高级用户/agent）
 
@@ -62,7 +62,7 @@ s1 导出器对解密库的假定（微信 v4 库结构）：
 - 消息列：`local_id, local_type, real_sender_id, create_time, message_content, WCDB_CT_message_content`
 - `WCDB_CT_message_content != 0` 时内容为 zstd 压缩字节（自动解压）
 - `local_type & 0xFFFFFFFF` 为基础类型码（1 文字 / 3 图 / 34 语音 / 47 表情 / …）
-- schema 变了？改 [../xinli/pipeline/s1_export.py](../xinli/pipeline/s1_export.py) 即可——真相源格式见其 docstring
+- schema 变了？改 [../my_ex_girlfriend_at_25/pipeline/s1_export.py](../my_ex_girlfriend_at_25/pipeline/s1_export.py) 即可——真相源格式见其 docstring
 
 ## 再次提醒
 

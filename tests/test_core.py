@@ -4,7 +4,7 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "xinli" / "core"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "my_ex_girlfriend_at_25" / "core"))
 
 from retrieve import tokens, BM25, rrf  # noqa: E402
 from consolidate import _parse_json, _find_match, tokens as ctokens  # noqa: E402

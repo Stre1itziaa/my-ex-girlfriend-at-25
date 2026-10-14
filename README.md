@@ -1,6 +1,6 @@
-# 心侣 xinli
+# 我的 25 岁前女友
 
-[![CI](https://github.com/Stre1itziaa/xinli/actions/workflows/ci.yml/badge.svg)](https://github.com/Stre1itziaa/xinli/actions/workflows/ci.yml)
+[![CI](https://github.com/Stre1itziaa/my-ex-girlfriend-at-25/actions/workflows/ci.yml/badge.svg)](https://github.com/Stre1itziaa/my-ex-girlfriend-at-25/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 ![Node](https://img.shields.io/badge/Node.js-18+-green.svg)
@@ -39,14 +39,14 @@ Zero finetuning · retrieval-native persona · inner life · WeChat channel · l
 
 ```bash
 pip install -e .[vision]
-xinli init                       # 生成配置(含虚构示例人格「小满」)
-xinli fetch-model <发布者>/<仓库> <模型文件>.gguf   # 下载本地模型(首下不带校验参数, 自动打印 sha256)
-xinli serve-llm                  # 启动推理(硬件画像自动配参: CUDA/Vulkan, 显存分档)
-xinli build --demo               # 合成语料建索引(完整体验; 不跑也能聊, 只是空检索)
-xinli run                        # http://127.0.0.1:8787 开聊
+my-ex-girlfriend-at-25 init                       # 生成配置(含虚构示例人格「小满」)
+my-ex-girlfriend-at-25 fetch-model <发布者>/<仓库> <模型文件>.gguf   # 下载本地模型(首下不带校验参数, 自动打印 sha256)
+my-ex-girlfriend-at-25 serve-llm                  # 启动推理(硬件画像自动配参: CUDA/Vulkan, 显存分档)
+my-ex-girlfriend-at-25 build --demo               # 合成语料建索引(完整体验; 不跑也能聊, 只是空检索)
+my-ex-girlfriend-at-25 run                        # http://127.0.0.1:8787 开聊
 ```
 
-用自己的聊天记录：先按 [docs/export-logs.md](docs/export-logs.md) 导出解密库（含数据红线，先读）再 `xinli build`。
+用自己的聊天记录：先按 [docs/export-logs.md](docs/export-logs.md) 导出解密库（含数据红线，先读）再 `my-ex-girlfriend-at-25 build`。
 
 ## 核心特性
 
@@ -83,4 +83,4 @@ Apache-2.0。第三方组件与许可见 [NOTICE](NOTICE)。
 
 ### English (short)
 
-Xinli turns your own chat logs into a local AI companion with a retrieval-native persona (no finetuning), an inner life (schedule, mood, proactive texting), a memory consolidation loop (nightly, local-model-only), and an official WeChat bot channel. Read the ethics charter first: only recreate yourself or someone who explicitly consented. See [README_EN.md](README_EN.md) for details.
+My Ex-Girlfriend at 25 turns your own chat logs into a local AI companion with a retrieval-native persona (no finetuning), an inner life (schedule, mood, proactive texting), a memory consolidation loop (nightly, local-model-only), and an official WeChat bot channel. Read the ethics charter first: only recreate yourself or someone who explicitly consented. See [README_EN.md](README_EN.md) for details.

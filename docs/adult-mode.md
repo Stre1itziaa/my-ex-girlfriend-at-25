@@ -6,7 +6,7 @@
 
 ## 这是什么
 
-xinli 的"内心系统"里包含一套默认关闭的成人向模块，全部由本地代码与提示词构成：
+本项目的"内心系统"里包含一套默认关闭的成人向模块，全部由本地代码与提示词构成：
 
 | 组件 | 位置 | 作用 |
 |---|---|---|
@@ -15,7 +15,7 @@ xinli 的"内心系统"里包含一套默认关闭的成人向模块，全部由
 | 夜间主动支线 | `settings.yaml → proactive.desire.enabled` | 需求值过门槛后，夜间窗口主动发暧昧消息 |
 
 **两个开关默认都是 `false`**。开启方式：编辑 `config/settings.yaml`，把对应 `enabled` 改为
-`true`，重启 `xinli run`。想确认关着？`settings.yaml` 里搜 `enabled`，或直接不碰它。
+`true`，重启 `my-ex-girlfriend-at-25 run`。想确认关着？`settings.yaml` 里搜 `enabled`，或直接不碰它。
 
 ## 模型决定体验（重要）
 

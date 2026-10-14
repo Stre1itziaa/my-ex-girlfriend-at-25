@@ -3,13 +3,13 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "xinli"
+name = "my-ex-girlfriend-at-25"
 version = "0.2.0"
 description = "Turn real chat logs into a living AI companion — retrieval-native persona, inner life, zero finetuning. 把真实聊天记录变成有血有肉的 AI 陪伴。"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
-authors = [{ name = "xinli contributors" }]
+authors = [{ name = "my-ex-girlfriend-at-25 contributors" }]
 keywords = ["ai-companion", "persona", "weixin", "wechat", "llm", "llama-cpp", "memory", "chinese"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -31,10 +31,10 @@ wechat = ["zstandard>=0.22"]       # 微信解密库导出 (s1) 需要
 dev = ["pytest>=8.0", "ruff>=0.4"]
 
 [project.scripts]
-xinli = "xinli.cli:main"
+my-ex-girlfriend-at-25 = "my_ex_girlfriend_at_25.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["xinli*"]
+include = ["my_ex_girlfriend_at_25*"]
 
 [tool.ruff]
 line-length = 120

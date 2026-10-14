@@ -4,20 +4,20 @@
 
 ## 项目一句话
 
-xinli（心侣）：把聊天记录变成本地 AI 伴侣——检索复刻人格 + 内心系统 + 微信官方通道，零微调，本地推理。
+我的 25 岁前女友（My Ex-Girlfriend at 25）：把聊天记录变成本地 AI 伴侣——检索复刻人格 + 内心系统 + 微信官方通道，零微调，本地推理。
 
 ## 标准搭建序列（幂等，按序执行，每步有验证）
 
 ```bash
 pip install -e .[vision]                                   # ① 依赖
-xinli init                                                 # ② 配置+目录
+my-ex-girlfriend-at-25 init                                                 # ② 配置+目录
 # ③ llama-server: 从 https://github.com/ggml-org/llama.cpp/releases/latest
 #    取 llama-<b>-bin-win-vulkan-x64.zip, 解压 llama-server.exe → local_llm/vulkan/
-xinli fetch-model <发布者>/<仓库> <文件>.gguf               # ④ 模型(首下不带校验参数, 会打印 sha256)
-xinli serve-llm                                            # ⑤ 推理服务
+my-ex-girlfriend-at-25 fetch-model <发布者>/<仓库> <文件>.gguf               # ④ 模型(首下不带校验参数, 会打印 sha256)
+my-ex-girlfriend-at-25 serve-llm                                            # ⑤ 推理服务
 curl http://127.0.0.1:8081/health                          #    → {"status":"ok"}
-xinli build --demo                                         # ⑥ 合成语料建索引
-xinli run                                                  # ⑦ http://127.0.0.1:8787
+my-ex-girlfriend-at-25 build --demo                                         # ⑥ 合成语料建索引
+my-ex-girlfriend-at-25 run                                                  # ⑦ http://127.0.0.1:8787
 ```
 
 详细步骤/验证点/排障：**docs/getting-started.md**（唯一权威，与本节冲突以它为准）。
@@ -25,7 +25,7 @@ xinli run                                                  # ⑦ http://127.0.0.
 ## 改代码后的验证门（全部通过才算完成）
 
 ```bash
-ruff check xinli tools tests channels --select E9,F63,F7,F82
+ruff check my_ex_girlfriend_at_25 tools tests channels --select E9,F63,F7,F82
 python -m pytest tests/ -q
 python tools/scan_secrets.py --root . --tracked    # 脱敏扫描(CI 同款)
 python tools/scan_secrets.py --root . --history    # 全 git 对象体检
@@ -44,7 +44,7 @@ python tools/scan_secrets.py --root . --history    # 全 git 对象体检
 
 ## 结构速览
 
-- `xinli/core/` 大脑（chat 检索人格 / inner 内心 / proactive 主动触达 / consolidate 记忆固化 / llm 统一后端）
-- `xinli/pipeline/` s1导出→s2清洗→…→s8b视觉打标 语料管线
-- `xinli/ui/web.py` 本地 WebUI + 微信收发循环；`channels/agent2wechat/` 微信桥接（Node）
+- `my_ex_girlfriend_at_25/core/` 大脑（chat 检索人格 / inner 内心 / proactive 主动触达 / consolidate 记忆固化 / llm 统一后端）
+- `my_ex_girlfriend_at_25/pipeline/` s1导出→s2清洗→…→s8b视觉打标 语料管线
+- `my_ex_girlfriend_at_25/ui/web.py` 本地 WebUI + 微信收发循环；`channels/agent2wechat/` 微信桥接（Node）
 - `config/*.example.yaml` 配置模板（真实配置 gitignored）；`tools/scan_secrets.py` 脱敏扫描器

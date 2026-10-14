@@ -2,7 +2,7 @@
 """模型自愈下载器: hf_transfer 多线程 + sha256 校验 + 收尾看门狗。
 
 用法:
-  python -m xinli.fetch_model REPO_ID FILENAME DEST_DIR SHA256 EXPECT_SIZE
+  python -m my_ex_girlfriend_at_25.fetch_model REPO_ID FILENAME DEST_DIR SHA256 EXPECT_SIZE
   SHA256 传全零 / EXPECT_SIZE 传 0 = 不校验, 下载后自动打印实际 sha256 与大小
   (首次获取某模型时用; 把打印值记下来, 以后重下可用它们复检)
 环境:

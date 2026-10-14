@@ -1,4 +1,7 @@
-# xinli (心侣)
+# My Ex-Girlfriend at 25（我的 25 岁前女友）
+
+> **A note before we start**: this project grew out of a real story of mine — **my ex-girlfriend at 25**. It turns a real chat history into an AI who still talks, and still texts first.
+> The story in the name is mine; the boundaries belong to everyone: recreate only yourself, or someone who gave explicit consent ([docs/ethics.md](docs/ethics.md)).
 
 **Turn a real chat history into a local AI companion who texts first, remembers your story, and talks like the person.**
 
@@ -11,15 +14,15 @@ Zero finetuning · retrieval-native persona · inner life · WeChat channel · l
 
 ```bash
 pip install -e .[vision]
-xinli init
-xinli fetch-model <publisher>/<repo> <model-file>.gguf   # verification optional; prints sha256
-xinli serve-llm          # hardware-aware launch (CUDA/Vulkan, VRAM tiers)
-xinli build --demo       # synthetic demo corpus → profile/index/rhythm
-xinli run                # http://127.0.0.1:8787
+my-ex-girlfriend-at-25 init
+my-ex-girlfriend-at-25 fetch-model <publisher>/<repo> <model-file>.gguf   # verification optional; prints sha256
+my-ex-girlfriend-at-25 serve-llm          # hardware-aware launch (CUDA/Vulkan, VRAM tiers)
+my-ex-girlfriend-at-25 build --demo       # synthetic demo corpus → profile/index/rhythm
+my-ex-girlfriend-at-25 run                # http://127.0.0.1:8787
 ```
 
 New here (or dispatching an agent)? Follow **[docs/getting-started.md](docs/getting-started.md)** — every step has a verification checkpoint, including where to get `llama-server`.
-Use your own logs: export your decrypted WeChat DB first, then `xinli build` (see docs/export-logs.md, 中文).
+Use your own logs: export your decrypted WeChat DB first, then `my-ex-girlfriend-at-25 build` (see docs/export-logs.md, 中文).
 
 ## Highlights
 

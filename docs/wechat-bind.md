@@ -8,7 +8,7 @@
 机器人以独立身份存在（显示为"微信ClawBot"），只能与**扫码绑定的主人**私聊，架构上不可能打扰第三方。
 桥接是独立实现（Node 守护进程 + 文件队列），框架无关，完整说明见其 [README](../channels/agent2wechat/README.md)。
 
-Python 侧适配器 `channels/bridge_io.py` 由 `xinli run` 自动加载：轮询 inbox、**连发聚合**（追等两轮把快速连发聚齐再回）、图片送本地视觉模型、表情包标记转真实附件。
+Python 侧适配器 `channels/bridge_io.py` 由 `my-ex-girlfriend-at-25 run` 自动加载：轮询 inbox、**连发聚合**（追等两轮把快速连发聚齐再回）、图片送本地视觉模型、表情包标记转真实附件。
 
 ## 绑定步骤
 
@@ -21,7 +21,7 @@ Python 侧适配器 `channels/bridge_io.py` 由 `xinli run` 自动加载：轮�
    node bridge.mjs login
    ```
    （二维码信息在 `login/qr.json`，如需验证码写入 `login/verify.txt`；绑定成功后凭据写入 `state.json`，**勿外传，已在 .gitignore**）
-3. 重启 `xinli run` —— 之后她主动发消息会双投递：本地 WebUI + 你的微信；你从微信发来的文字/图片也会进入她的对话。
+3. 重启 `my-ex-girlfriend-at-25 run` —— 之后她主动发消息会双投递：本地 WebUI + 你的微信；你从微信发来的文字/图片也会进入她的对话。
 
 ## PAUSED 冷却闸
 

@@ -23,25 +23,25 @@
 ## 2. 安装项目
 
 ```bash
-git clone https://github.com/Stre1itziaa/xinli.git
-cd xinli
+git clone https://github.com/Stre1itziaa/my-ex-girlfriend-at-25.git
+cd my-ex-girlfriend-at-25
 pip install -e .[vision]
 ```
 
 （没有 git 可在 GitHub 页面 Code → Download ZIP 解压后进入目录执行同样命令。）
 
-**✅ 验证**：`python -c "import xinli; print('ok')"` 输出 `ok`。
+**✅ 验证**：`python -c "import my_ex_girlfriend_at_25; print('ok')"` 输出 `ok`。
 
 ## 3. 初始化
 
 ```bash
-xinli init
+my-ex-girlfriend-at-25 init
 ```
 
 生成 `config/settings.yaml` 与 `config/persona.yaml`（复制自 example，内置虚构示例人格「小满」），
 并创建 `memory/ state/ data/ channels/` 等目录。
 
-**✅ 验证**：`xinli doctor` 显示 `✓ config/settings.yaml` 与 `✓ config/persona.yaml`
+**✅ 验证**：`my-ex-girlfriend-at-25 doctor` 显示 `✓ config/settings.yaml` 与 `✓ config/persona.yaml`
 （此时 llama-server / 检索索引为 △ 属正常）。
 
 ## 4. 获取 llama-server（推理引擎）
@@ -65,7 +65,7 @@ xinli init
 ## 5. 获取模型（约 17GB，一次性）
 
 ```bash
-xinli fetch-model <发布者>/<模型仓库> <模型文件>.gguf
+my-ex-girlfriend-at-25 fetch-model <发布者>/<模型仓库> <模型文件>.gguf
 ```
 
 - 选型见 [models.md](models.md)（12–24G 显存 → 26B 级 MoE Q4_K_M 档）。
@@ -81,7 +81,7 @@ xinli fetch-model <发布者>/<模型仓库> <模型文件>.gguf
 ## 6. 启动推理
 
 ```bash
-xinli serve-llm
+my-ex-girlfriend-at-25 serve-llm
 ```
 
 **✅ 验证**（另开一个终端）：
@@ -89,24 +89,24 @@ xinli serve-llm
 ```bash
 curl http://127.0.0.1:8081/health        # 期望 {"status":"ok"}
 # 或
-xinli doctor                             # llama-server 一行变 ✓
+my-ex-girlfriend-at-25 doctor                             # llama-server 一行变 ✓
 ```
 
 ## 7. 建索引（demo 语料，一次性）
 
 ```bash
-xinli build --demo
+my-ex-girlfriend-at-25 build --demo
 ```
 
 用合成示例语料跑画像/索引/作息统计（不需要任何真实聊天记录）。
 不跑也能聊（空检索模式），但跑了她才有"记忆"。
 
-**✅ 验证**：末行 `管线完成`；`xinli doctor` 的检索索引一行变 ✓。
+**✅ 验证**：末行 `管线完成`；`my-ex-girlfriend-at-25 doctor` 的检索索引一行变 ✓。
 
 ## 8. 开始对话
 
 ```bash
-xinli run
+my-ex-girlfriend-at-25 run
 ```
 
 浏览器自动打开 <http://127.0.0.1:8787>。发一句话，等她的回复
@@ -118,11 +118,11 @@ xinli run
 
 | 现象 | 处理 |
 |---|---|
-| `serve-llm` 报模型不存在 | `config/settings.yaml` 的 `model.file` 与磁盘文件名不一致；先 `xinli fetch-model` |
+| `serve-llm` 报模型不存在 | `config/settings.yaml` 的 `model.file` 与磁盘文件名不一致；先 `my-ex-girlfriend-at-25 fetch-model` |
 | `run` 报 500 / refusal | llama-server 没起：先 `serve-llm`，用第 6 步验证 |
 | 回复很慢 | 显存不足换了低档参数；看 `serve-llm` 启动日志的分层策略 |
 | 下载中断/挂起 | 重跑同一条 `fetch-model`（huggingface_hub 有缓存）；>20G 建议带 `--sha256 --size` 复检 |
-| 其他 | `xinli doctor` 逐项体检 |
+| 其他 | `my-ex-girlfriend-at-25 doctor` 逐项体检 |
 
 ## 10. 进阶路线
 

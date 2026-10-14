@@ -2,7 +2,7 @@
 """生成虚构 demo 语料（角色=小满, 全部合成, 无任何真人数据）。
 
 产出 data/corpus/clean.jsonl (S2 清洗后格式): meta 行 + 轮次行。
-demo 模式下运行 `xinli build --demo` 只跑 s3/s4/s6 (文本特征, 无需微信库)。
+demo 模式下运行 `my-ex-girlfriend-at-25 build --demo` 只跑 s3/s4/s6 (文本特征, 无需微信库)。
 """
 import json
 import datetime
@@ -52,7 +52,7 @@ def main():
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
     print(f"[demo] 合成语料 {len(rows)} 轮 → {out}")
-    print("[demo] 下一步: xinli build --demo  (只跑 s3/s4/s6, 无需微信库)")
+    print("[demo] 下一步: my-ex-girlfriend-at-25 build --demo  (只跑 s3/s4/s6, 无需微信库)")
 
 if __name__ == "__main__":
     main()

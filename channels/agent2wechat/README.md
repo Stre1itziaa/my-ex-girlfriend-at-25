@@ -58,7 +58,7 @@ bridge.mjs 守护进程（一个进程并行轮询全部 binding）
 }
 ```
 
-`attachments` 可选，按扩展名判断图片/视频/文件。处理完的入站文件请移入 `processed/`，避免重复处理。`xinli run` 已内置对接（`channels/bridge_io.py`）：自动轮询 inbox、连发聚合、图片送视觉模型。
+`attachments` 可选，按扩展名判断图片/视频/文件。处理完的入站文件请移入 `processed/`，避免重复处理。`my-ex-girlfriend-at-25 run` 已内置对接（`channels/bridge_io.py`）：自动轮询 inbox、连发聚合、图片送视觉模型。
 
 ## 安装与运行
 

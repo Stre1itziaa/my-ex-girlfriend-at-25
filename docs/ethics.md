@@ -1,6 +1,6 @@
 # 伦理宪章（Ethics Charter）
 
-本项目（xinli）的每一次提交都受本宪章约束。违反宪章的 fork/使用方式与本社区无关。
+本项目（我的 25 岁前女友 · My Ex-Girlfriend at 25）的每一次提交都受本宪章约束。违反宪章的 fork/使用方式与本社区无关。
 
 ## 1. 同意原则（Consent-first）
 

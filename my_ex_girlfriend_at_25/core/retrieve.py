@@ -44,7 +44,7 @@ class BM25:
 def load_all():
     if not IDX.exists():
         # 全新安装: 还没跑 build, 空索引模式(检索返回空, 不影响启动)
-        print("[retrieve] 未找到检索索引 (先运行 xinli build) — 空检索模式")
+        print("[retrieve] 未找到检索索引 (先运行 my-ex-girlfriend-at-25 build) — 空检索模式")
         return {"version": 0, "windows": [], "embeddings": None}, None, [], None
     payload = pickle.loads(IDX.read_bytes())
     bm = BM25(payload["bm25"]["idf"], payload["bm25"]["avgdl"], payload["bm25"]["doc_tfs"],
